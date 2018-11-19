@@ -4,9 +4,9 @@
 
 require ["vacation","date","relational","variables"];
 
-if header :matches "Subject" "*" {
+if header :matches "Subject" "*" {{
     set "subjwas" ": ${1}";
-}
+}}
 
 if allof(currentdate :value "ge" "date" "{gosaVacationStartDate}",
          currentdate :value "le" "date" "{gosaVacationStopDate}"){{
