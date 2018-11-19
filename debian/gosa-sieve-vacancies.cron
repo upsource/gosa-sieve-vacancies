@@ -1,0 +1,2 @@
+# sync data from openldap to sieve files
+*/5 * * * * vmail python /opt/bin/sync-vacancies.py 2>&1 | /usr/bin/logger -t gosa-sieve-vacancies

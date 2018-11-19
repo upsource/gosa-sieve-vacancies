@@ -1,0 +1,18 @@
+{
+  "ldap": {
+    "url": "ldaps://example.org:636",
+    "binddn":"uid=admin,ou=people,dc=upsource,dc=de",
+    "bindpw":"xxxx",
+    "basedn":"ou=people,dc=example,dc=org",
+    "useTLS":true,
+    "userfilter":"(&(objectClass=gosaMailAccount) (gosaVacationMessage=*)(gosaVacationStart=*)(gosaVacationStop=*))",
+    "uidAttribute":"uid",
+    "searchAttributes": ["uid","gosaVacationMessage","gosaVacationStart","gosaVacationStop"],
+    "startTsAttribute": "gosaVacationStart",
+    "endTsAttribute" : "gosaVacationStop"
+  },
+  "sieve": {
+    "userHomePathTemplate":"/var/vmail/mailboxes/{uid}/sieve/",
+    "outFilenameTemplate":"vacation.sieve"
+  }
+}
