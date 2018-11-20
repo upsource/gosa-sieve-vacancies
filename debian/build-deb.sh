@@ -28,5 +28,5 @@ fpm -s dir --log info -t deb \
 ${BASE}/../sync-vacancies.conf.json=/etc/gosa-sieve-vacancies/sync-vacancies.conf.json \
 ${BASE}/../sieve-template.tpl=/etc/gosa-sieve-vacancies/sieve-template.tpl \
 ${BASE}/../sync-vacancies.py=/opt/bin/sync-vacancies.py \
-${BASE}/gosa-sieve-vacancies.cron=/etc/cron.d/gosa-sieve-vacancies.cron \
+${BASE}/gosa-sieve-vacancies.cron=/etc/cron.d/gosa-sieve-vacancies \
 ${BASE}/91-vacation-sieve.conf=/etc/dovecot/conf.d/91-vacation-sieve.conf

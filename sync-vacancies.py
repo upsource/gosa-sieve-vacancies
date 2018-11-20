@@ -118,23 +118,24 @@ def sync_sieve_file(data):
     if not args.dryRun:
 
         if not os.path.isdir(target_directory):
-            print "Warn: Sieve user-directory for user "+str(new_user["uid"])+" does not yet exist at " + str(target_directory) + ". Do nothing!"
+            print "Warn: Sieve user-directory for user "+str(new_user["uid"])+" does not yet exist at '" +\
+                  str(target_directory) + "'. Do nothing!"
             return
 
         # check isActive
-        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("activeAttribute")
+        is_active = ldap_cfg("activeWhenMatches") in new_user[ldap_cfg("activeAttribute")]
 
         with open(target_directory + filename, "w") as outfile:
-            if isActive:
+            if is_active:
                 outfile.write(sieve_template.format(**new_user))
             else:
                 outfile.write("# currently inactive")
     else:
 
         # check isActive
-        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("activeAttribute")
+        is_active = ldap_cfg("activeWhenMatches") in ldap_cfg("activeAttribute")
         print "would safe to " + str(target_directory + filename)
-        if isActive:
+        if is_active:
             print sieve_template.format(**new_user)
         else:
             print "# currently inactive"
