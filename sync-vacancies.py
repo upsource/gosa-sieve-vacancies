@@ -122,7 +122,7 @@ def sync_sieve_file(data):
             return
 
         # check isActive
-        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("gosaMailDeliveryMode")
+        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("activeAttribute")
 
         with open(target_directory + filename, "w") as outfile:
             if isActive:
@@ -130,11 +130,17 @@ def sync_sieve_file(data):
             else:
                 outfile.write("# currently inactive")
     else:
+
+        # check isActive
+        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("activeAttribute")
         print "would safe to " + str(target_directory + filename)
-        print sieve_template.format(**new_user)
+        if isActive:
+            print sieve_template.format(**new_user)
+        else:
+            print "# currently inactive"
 
 
-# parse args
+        # parse args
 args = parse_args()
 
 
