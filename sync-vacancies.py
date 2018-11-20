@@ -92,14 +92,15 @@ def sync_sieve_file(data):
     if verbose:
         print "processing user " + str(user["uid"][0])
 
+    # create a map of our search attributes
     attribs = [s.encode('ascii') for s in ldap_cfg("searchAttributes")]
     new_user = {}
     for attrib in attribs:
         new_user[attrib] = user[attrib][0]
 
+    # enrich with proper formatted dates
     start_ts = float(new_user[ldap_cfg("startTsAttribute")])
     end_ts = float(new_user[ldap_cfg("endTsAttribute")])
-
     new_user["gosaVacationStartDate"] = datetime.utcfromtimestamp(start_ts).strftime('%Y-%m-%d')
     new_user["gosaVacationStopDate"] = datetime.utcfromtimestamp(end_ts).strftime('%Y-%m-%d')
 
@@ -115,12 +116,19 @@ def sync_sieve_file(data):
         print "# " + target_directory + filename
 
     if not args.dryRun:
+
         if not os.path.isdir(target_directory):
             print "Warn: Sieve user-directory for user "+str(new_user["uid"])+" does not yet exist at " + str(target_directory) + ". Do nothing!"
             return
 
+        # check isActive
+        isActive = ldap_cfg("activeWhenMatches") not in ldap_cfg("gosaMailDeliveryMode")
+
         with open(target_directory + filename, "w") as outfile:
-            outfile.write(sieve_template.format(**new_user))
+            if isActive:
+                outfile.write(sieve_template.format(**new_user))
+            else:
+                outfile.write("# currently inactive")
     else:
         print "would safe to " + str(target_directory + filename)
         print sieve_template.format(**new_user)

@@ -7,9 +7,11 @@
     "useTLS":true,
     "userfilter":"(&(objectClass=gosaMailAccount) (gosaVacationMessage=*)(gosaVacationStart=*)(gosaVacationStop=*))",
     "uidAttribute":"uid",
-    "searchAttributes": ["uid","gosaVacationMessage","gosaVacationStart","gosaVacationStop"],
+    "searchAttributes": ["uid","gosaVacationMessage","gosaVacationStart","gosaVacationStop", "gosaMailDeliveryMode"],
     "startTsAttribute": "gosaVacationStart",
-    "endTsAttribute" : "gosaVacationStop"
+    "endTsAttribute" : "gosaVacationStop",
+    "activeAttribute":"gosaMailDeliveryMode",
+    "activeWhenMatches":"V"
   },
   "sieve": {
     "userHomePathTemplate":"/var/vmail/mailboxes/{uid}/sieve/",
