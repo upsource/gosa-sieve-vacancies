@@ -9,7 +9,9 @@ if header :matches "Subject" "*" {{
 }}
 
 if allof(currentdate :value "ge" "date" "{gosaVacationStartDate}",
-            currentdate :value "le" "date" "{gosaVacationStopDate}"){{
+            currentdate :value "le" "date" "{gosaVacationStopDate}",
+            not header :is "X-Spam" "Yes",
+            not header :contains "X-Spam-Flag" "YES"){{
     # Reply at most once a day to a same sender
     vacation
         :days 1
