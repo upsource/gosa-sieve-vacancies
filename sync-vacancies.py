@@ -129,7 +129,7 @@ def sync_sieve_file(data):
             if is_active:
                 outfile.write(sieve_template.format(**new_user))
             else:
-                outfile.write("# currently inactive")
+                outfile.write("# currently inactive\n")
     else:
 
         # check isActive
